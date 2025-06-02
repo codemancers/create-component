@@ -2,7 +2,7 @@
 
 import minimist from "minimist";
 import chalk from "chalk";
-import { createReactComponent } from "../lib/create-react-component.js";
+import { createComponent } from "../lib/create-component.js";
 
 const args = minimist(process.argv.slice(2));
 const isReact = args.react || false;
@@ -18,7 +18,7 @@ if (isReact) {
   console.log(
     chalk.green(`✨ Creating React component from Figma link: ${figmaLink}`)
   );
-  createReactComponent(figmaLink, args.name, isTs);
+  createComponent(figmaLink, args.name, isTs);
 } else {
   console.log(chalk.yellow("⚠️ No framework specified. Use --react flag."));
 }
