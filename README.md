@@ -6,14 +6,12 @@
 
 ## command to create a component in a project repo
 
-npx create-component --react --ts --figma-link="link" --name=CardComponent
+npx create-component --figma-link="link" --name=CardComponent
 
 ### agrs
 
-1. --react: for react component (required)
-2. --ts: for .tsx extension (optional, default is jsx)
-3. --figma-link: pass figma_link of the component
-4. --name: name of the component (optional, default will be the name of the node in figma design)
+1. --figma-link: pass figma_link of the component
+2. --name: name of the component (optional, default will be the name of the node in figma design)
 
 ## Figma to Code (Figma design rules)
 
