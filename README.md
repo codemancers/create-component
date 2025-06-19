@@ -1,8 +1,10 @@
 # Local setup
 
-1. Create Figma access token and paste it in .env
-2. In the test repos package.json in devDependencies add "create-component": "file:/file_path"
-3. run `npm i` in the test repo
+1. clone the repo
+2. Create Figma access token
+3. In the test repos package.json in devDependencies add "create-component": "file:/local_repo_path"
+4. run `npm i` in the test repo
+5. for first time when the package is executed, it asks for figma_access token, please enter token, it will be stored locally for future use.
 
 ## command to create a component in a project repo
 
