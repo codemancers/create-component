@@ -34,7 +34,7 @@ const figmaLink = args["figma-link"];
 async function checkFigmaAccessToken() {
   if (fs.existsSync(CONFIG_FILE)) {
     const config = JSON.parse(fs.readFileSync(CONFIG_FILE, "utf-8"));
-    if (config.figma_access_token) return config.figma_access_token;
+    if (config.figma_access_token) return;
   }
 
   const token = await promptFigmaToken();
@@ -45,11 +45,8 @@ async function checkFigmaAccessToken() {
     CONFIG_FILE,
     JSON.stringify({ figma_access_token: token }, null, 2)
   );
-
-  return token;
 }
 
-//
 function promptFigmaToken() {
   const rl = readline.createInterface({
     input: process.stdin,
