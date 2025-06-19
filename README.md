@@ -41,3 +41,12 @@ There are two types of input fields:
   - **Input Box:** inputbox-inputbox_name (e.g., inputbox-search)
   - **Icon inside Input:** image-image_name (e.g., image-search_icon)
   - **Actual Input Field:** input-input_name (e.g., input-search_query)
+
+#### Label for Input fiels
+
+- **structure:**
+
+  - container (name label)
+    - text field (type TEXT)
+
+- **Naming:** label-label_name (eg., label-driver_name)
