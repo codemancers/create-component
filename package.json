@@ -2,6 +2,7 @@
   "name": "create-component",
   "version": "1.0.0",
   "description": "CLI to create React components from Figma link",
+  "type": "module",
   "bin": {
     "create-component": "./bin/index.js"
   },
