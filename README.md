@@ -69,9 +69,23 @@ To add support for a new framework (e.g., Svelte), follow these steps:
    - Implement your converter class (extend the base converter if needed).
    - Export the converter as default and ensure it has a `framework` property and an `isProject` method.
 
+   ```js
+   export default class FigmaToSvelte {
+     /**  */
+   }
+
+   export function isProject(dependencies) {
+     /**  */
+   }
+
+   export const framework = "svelte";
+   export const extension = "svelte";
+   ```
+
 3. **Register your converter**
 
    - In `lib/converters/converterRegistry.js`, import your new converter
+
      ```js
      import * as SvelteConverter from "./FigmaToSvelte.js";
      // ...
