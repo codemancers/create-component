@@ -2,18 +2,20 @@
 
 1. clone the repo
 2. Create Figma access token
-3. In the test repos package.json in devDependencies add "create-component": "file:/local_repo_path"
+3. In the test repo's package.json in devDependencies add "create-component": "file:/local_repo_path"
 4. run `npm i` in the test repo
-5. for first time when the package is executed, it asks for figma_access token, please enter token, it will be stored locally for future use.
+5. For the first time when the package is executed, it asks for figma_access token; please enter the token, it will be stored locally for future use.
 
-## command to create a component in a project repo
+## Command to create a component in a project repo
 
 npx create-component --figma-link="link" --name=CardComponent
 
-### agrs
+### Args
 
-1. --figma-link: pass figma_link of the component
-2. --name: name of the component (optional, default will be the name of the node in figma design)
+1. --figma-link: pass figma_link of the component (required)
+2. --name: name of the component (optional, default will be the name of the node in Figma design)
+
+> **Note:** The framework (React, Vue, Angular, etc.) and file extension (js/ts) are auto-detected based on your project's dependencies and config files. No need to specify them manually.
 
 ## Figma to Code (Figma design rules)
 
@@ -44,7 +46,7 @@ There are two types of input fields:
   - **Icon inside Input:** image-image_name (e.g., image-search_icon)
   - **Actual Input Field:** input-input_name (e.g., input-search_query)
 
-#### Label for Input fiels
+#### Label for Input fields
 
 - **structure:**
 
@@ -57,37 +59,25 @@ There are two types of input fields:
 
 To add support for a new framework (e.g., Svelte), follow these steps:
 
-1. **Update the detectProjectConfig method in create-component file for new framework**
+1. **Update the detectFramework logic in the converter registry**
 
-   - Update the logic in `lib/create-component.js` to detect the framework
+   - In `lib/converters/converterRegistry.js`, add your new converter to the `converters` array and ensure it has an `isProject` method for detection.
 
 2. **Create a new converter file**
 
    - Example: `lib/converters/FigmaToSvelte.js`
    - Implement your converter class (extend the base converter if needed).
+   - Export the converter as default and ensure it has a `framework` property and an `isProject` method.
 
 3. **Register your converter**
 
-   - At the top of your new file, import the registry:
+   - In `lib/converters/converterRegistry.js`, import your new converter
      ```js
-     import { registerConverter } from "./ConverterRegistry.js";
+     import * as SvelteConverter from "./FigmaToSvelte.js";
+     // ...
+     converter = [, /** existing converters */ SvelteConverter];
+     registerConverter(SvelteConverter.framework, SvelteConverter.default);
      ```
-   - After defining your class, register it:
-
-     ```js
-     export default class FigmaToSvelte {
-       /* ... */
-     }
-     registerConverter("svelte", FigmaToSvelte);
-     ```
-
-4. **Update the converter index**
-
-   - Add an import for your new converter in `lib/converters/index.js`:
-     ```js
-     import "./FigmaToSvelte.js";
-     ```
-   - This ensures your converter is registered when the tool runs.
 
 **Example directory structure after adding Svelte:**
 
@@ -98,6 +88,5 @@ lib/
     FigmaToVue.js
     FigmaToAngular.js
     FigmaToSvelte.js   <-- your new file
-    ConverterRegistry.js
-    index.js           <-- imports all converter files
+    converterRegistry.js
 ```
