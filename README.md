@@ -52,3 +52,52 @@ There are two types of input fields:
     - text field (type TEXT)
 
 - **Naming:** label-label_name (eg., label-driver_name)
+
+# Adding a new framework
+
+To add support for a new framework (e.g., Svelte), follow these steps:
+
+1. **Update the detectProjectConfig method in create-component file for new framework**
+
+   - Update the logic in `lib/create-component.js` to detect the framework
+
+2. **Create a new converter file**
+
+   - Example: `lib/converters/FigmaToSvelte.js`
+   - Implement your converter class (extend the base converter if needed).
+
+3. **Register your converter**
+
+   - At the top of your new file, import the registry:
+     ```js
+     import { registerConverter } from "./ConverterRegistry.js";
+     ```
+   - After defining your class, register it:
+
+     ```js
+     export default class FigmaToSvelte {
+       /* ... */
+     }
+     registerConverter("svelte", FigmaToSvelte);
+     ```
+
+4. **Update the converter index**
+
+   - Add an import for your new converter in `lib/converters/index.js`:
+     ```js
+     import "./FigmaToSvelte.js";
+     ```
+   - This ensures your converter is registered when the tool runs.
+
+**Example directory structure after adding Svelte:**
+
+```
+lib/
+  converters/
+    FigmaToReact.js
+    FigmaToVue.js
+    FigmaToAngular.js
+    FigmaToSvelte.js   <-- your new file
+    ConverterRegistry.js
+    index.js           <-- imports all converter files
+```
